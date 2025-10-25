@@ -37,3 +37,21 @@ if (!game_over) {
         room_restart();  // Restart the current room
     }
 }
+
+// Handle round transition
+if (round_transition) {
+    transition_timer--;
+    timer_active = false;  // Pause the timer during transition
+    
+    if (transition_timer <= 0) {
+        round_transition = false;
+        timer_active = true;
+        load_next_word();
+    }
+    return;
+}
+
+// Regular timer update when not in transition
+if (timer_active && !game_over) {
+    // ...existing timer code...
+}
