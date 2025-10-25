@@ -7,9 +7,6 @@ if (object_exists(obj_letter)) {
 var ctrl = obj_gamecontroller; // get the controller
 if (!instance_exists(ctrl)) exit; // failsafe: no controller yet
 
-// Clear used letters at start of new round
-ds_list_clear(ctrl.used_letters);
-
 // --- 3. Reset round data ---
 ctrl.bonus_mode = false;
 ctrl.timer = ctrl.round_time;

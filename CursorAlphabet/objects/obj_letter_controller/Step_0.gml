@@ -2,8 +2,11 @@
 var safe_distance = 10;      // padding between circles
 var attempts_limit = 100;    // safety limit for position attempts
 var spawn_delay = room_speed * 0.5; // 0.5 second delay between spawns
-var top_safe_zone = 120;     // letters spawn below this Y value (hangman word area + padding)
-
+var top_safe_zone = 120; // default fallback
+if (instance_exists(obj_hangman_manager)) {
+    var hm = instance_find(obj_hangman_manager, 0);
+    top_safe_zone = hm.TOP_MARGIN + 70; // Add padding for the word display
+}
 // Get hangman manager reference
 var hm = instance_find(obj_hangman_manager, 0);
 
