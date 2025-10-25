@@ -1,6 +1,6 @@
-// Random uppercase letter
-var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-letter = string_char_at(letters, irandom_range(1, string_length(letters)));
+// Letter will be set by controller now
+letter = "A";
+is_number = false; // Used for level 2 to track if this is a number bubble
 
 // Circle radius
 radius = 30;

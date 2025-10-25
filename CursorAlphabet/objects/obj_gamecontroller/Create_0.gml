@@ -5,7 +5,15 @@ score = 0;
 level = 1;
 round_index = 1;
 rounds_per_level = 5;
-round_time = 300;
+
+// Set round time based on level (in seconds)
+switch(level) {
+    case 1: round_time = 120; break; // 2 minutes
+    case 2: round_time = 240; break; // 4 minutes
+    case 3: round_time = 240; break; // 4 minutes
+    default: round_time = 120;
+}
+
 time_penalty = 60;
 timer = round_time;
 remaining = 0;

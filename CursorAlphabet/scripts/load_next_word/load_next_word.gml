@@ -1,6 +1,6 @@
 function load_next_word() {
-    // Check if all words in current level are completed
-    if (word_index >= array_length(word_list)) {
+    // Check if all words (5 rounds) in current level are completed
+    if (word_index >= 5) { // Fixed 5 rounds per level
         // Move to next level
         current_level++;
         word_index = 0;
@@ -9,17 +9,20 @@ function load_next_word() {
         switch (current_level) {
             case 1:
                 word_list = word_list_1;
-                timer = time_limit_level_1; // 1 minute for Level 1
-                show_debug_message("📚 Starting Level 1 - 1 minute!");
+                timer = time_limit_level_1; // 60 seconds for Level 1
+                static_bubbles = true; // Static bubbles for Level 1
+                show_debug_message("📚 Starting Level 1 - 60 seconds!");
                 break;
             case 2:
                 word_list = word_list_2;
-                timer = time_limit_level_2; // 1.5 minutes for Level 2
-                show_debug_message("📚 Starting Level 2 - 1 minute 30 seconds!");
+                timer = time_limit_level_2; // 90 seconds for Level 2
+                static_bubbles = true; // Static bubbles for Level 2
+                show_debug_message("📚 Starting Level 2 - 90 seconds!");
                 break;
             case 3:
                 word_list = word_list_3;
-                timer = time_limit_level_3; // 2 minutes for Level 3
+                timer = time_limit_level_3; // 120 seconds for Level 3
+                static_bubbles = false; // Animated bubbles for Level 3
                 show_debug_message("📚 Starting Level 3 - 2 minutes!");
                 break;
             default:
@@ -40,14 +43,6 @@ function load_next_word() {
     // Clear all existing letters
     with (obj_letter) {
         instance_destroy();
-    }
-
-    // Clear used letters for new word
-    with (obj_hangman_manager) {
-        ds_list_clear(used_letters);
-        wrong_guesses = 0;  // Reset wrong guesses counter
-        is_frozen = false;  // Ensure player isn't frozen when starting new word
-        freeze_timer = 0;
     }
 
     word = string_upper(word_list[word_index]);

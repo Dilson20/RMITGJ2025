@@ -1,29 +1,40 @@
 // Safe zone to avoid hangman word area
 var top_safe_zone = 120;
 
-switch (state) {
-    case "appearing":
-        alpha += fade_speed;
-        if (alpha >= 1) {
-            alpha = 1;
-            state = "waiting";
-        }
-        break;
+// Get hangman manager for level check
+var hm = instance_find(obj_hangman_manager, 0);
 
-    case "waiting":
-        stay_timer--;
-        if (stay_timer <= 0) {
-            state = "disappearing";
-        }
-        break;
+if (instance_exists(hm) && hm.static_bubbles) {
+    // For Levels 1 and 2: Static bubbles that stay in place
+    if (state == "appearing") {
+        alpha = 1;
+        state = "waiting";
+    }
+} else {
+    // For Level 3: Original animated behavior
+    switch (state) {
+        case "appearing":
+            alpha += fade_speed;
+            if (alpha >= 1) {
+                alpha = 1;
+                state = "waiting";
+            }
+            break;
 
-    case "disappearing":
-        alpha -= fade_speed;
-        if (alpha <= 0) {
-            var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            letter = string_char_at(letters, irandom_range(1, string_length(letters)));
+        case "waiting":
+            stay_timer--;
+            if (stay_timer <= 0) {
+                state = "disappearing";
+            }
+            break;
 
-            // Find non-overlapping position
+        case "disappearing":
+            alpha -= fade_speed;
+            if (alpha <= 0) {
+                var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                letter = string_char_at(letters, irandom_range(1, string_length(letters)));
+
+                // Find non-overlapping position
             var safe = false;
             repeat(100) {
                 safe = true;
@@ -45,12 +56,17 @@ switch (state) {
             // Random color again
             col = make_color_rgb(irandom(255), irandom(255), irandom(255));
 
-            alpha = 0;
-            state = "appearing";
-            stay_timer = irandom_range(60, 180);
+            if (instance_exists(hm) && hm.static_bubbles) {
+                alpha = 1;
+                state = "waiting";
+            } else {
+                alpha = 0;
+                state = "appearing";
+                stay_timer = irandom_range(60, 180);
+            }
         }
-
         break;
+    }
 }
 
 // === Detect cursor touch ===
@@ -76,17 +92,22 @@ if (instance_exists(obj_cursor)) {
 
             // --- Check with Hangman Manager ---
             if (instance_exists(hm)) {
-                var new_reveal = "";
+                // In level 2, clicking a number is always wrong
+                if (hm.current_level == 2 && is_number) {
+                    isCorrect = false;
+                } else {
+                    var new_reveal = "";
 
-                for (var i = 1; i <= string_length(hm.word); i++) {
-                    var c = string_char_at(hm.word, i);
-                    var r = string_char_at(hm.revealed, i);
+                    for (var i = 1; i <= string_length(hm.word); i++) {
+                        var c = string_char_at(hm.word, i);
+                        var r = string_char_at(hm.revealed, i);
 
-                    if (c == letter) {
-                        new_reveal += c;
-                        isCorrect = true;
-                    } else {
-                        new_reveal += r;
+                        if (c == letter) {
+                            new_reveal += c;
+                            isCorrect = true;
+                        } else {
+                            new_reveal += r;
+                        }
                     }
                 }
 
@@ -96,18 +117,29 @@ if (instance_exists(obj_cursor)) {
                     show_debug_message("✅ Correct letter: " + letter);
                     // Play correct sound
                     audio_play_sound(snd_slash, 1, false);
+                    // Reset wrong guesses counter on correct
+                    hm.wrong_guesses_in_row = 0;
                 } else {
                     show_debug_message("❌ Wrong letter: " + letter);
                     
-                    // FREEZE THE PLAYER for 2 seconds
-                    hm.is_frozen = true;
-                    hm.freeze_timer = 2 * room_speed; // 2 seconds
+                    // Increment wrong guesses counter
+                    hm.wrong_guesses_in_row++;
                     
-                    show_debug_message("❄️ Player frozen for 2 seconds!");
+                    // Check for consecutive wrong guesses
+                    if (hm.wrong_guesses_in_row >= 2) {
+                        // FREEZE THE PLAYER for 2 seconds
+                        hm.is_frozen = true;
+                        hm.freeze_timer = 2 * room_speed; // 2 seconds
+                        hm.wrong_guesses_in_row = 0; // Reset counter
+                        
+                        // Play stop sound for penalty
+                        audio_play_sound(snd_stop, 1, false);
+                        
+                        show_debug_message("❄️ Player frozen for 2 seconds due to consecutive wrong guesses!");
+                    }
                     
                     // Play wrong sound
                     audio_play_sound(snd_wrong, 1, false);
-					audio_play_sound(snd_stop, 1, false);
                 }
             }
 
