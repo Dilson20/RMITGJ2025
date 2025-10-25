@@ -1,1 +1,0 @@
-draw_sprite(menu_button, 0, x, y);
