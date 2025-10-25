@@ -32,7 +32,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_cursor",
+    "path":"sprites/spr_cursor/spr_cursor.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }
