@@ -53,6 +53,7 @@
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"Room2","path":"rooms/Room2/Room2.yy",},},
     {"id":{"name":"load_next_word","path":"scripts/load_next_word/load_next_word.yy",},},
+    {"id":{"name":"save_score_to_ini","path":"scripts/save_score_to_ini/save_score_to_ini.yy",},},
     {"id":{"name":"setup_round","path":"scripts/setup_round/setup_round.yy",},},
     {"id":{"name":"slice_hit","path":"scripts/slice_hit/slice_hit.yy",},},
     {"id":{"name":"spawn_letters","path":"scripts/spawn_letters/spawn_letters.yy",},},
@@ -87,8 +88,8 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
-    {"roomId":{"name":"Room2","path":"rooms/Room2/Room2.yy",},},
     {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+    {"roomId":{"name":"Room2","path":"rooms/Room2/Room2.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

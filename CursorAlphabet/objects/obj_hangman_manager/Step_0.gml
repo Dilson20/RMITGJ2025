@@ -15,8 +15,18 @@ if (timer_active && !game_over) {
         // Time's up for current level!
         game_over = true;
         show_losing_screen = true;
+        
+        // Calculate final score
+        global.total_score = (global.level1_time_left * 100) + 
+                           (global.level2_time_left * 100) + 
+                           (global.level3_time_left * 100);
+        
+        // Save score to file
+        save_score_to_ini(global.player_name, global.total_score);
+        
         audio_play_sound(snd_lose, 1, false);  // Play losing sound
         show_debug_message("⏰ Time's up for Level " + string(current_level) + "! Game ended.");
+        show_debug_message("📊 Final Score: " + string(global.total_score));
     }
 }
 
@@ -29,9 +39,15 @@ if (!game_over) {
             alarm[0] = room_speed * 2; // Delay 2 seconds before next word
         }
     }
-} else if (show_losing_screen) {
+} else if (show_losing_screen || show_winning_screen) {
     // Check for space press to restart
     if (keyboard_check_pressed(vk_space)) {
+        // Reset global score variables
+        global.level1_time_left = 0;
+        global.level2_time_left = 0;
+        global.level3_time_left = 0;
+        global.total_score = 0;
+        
         // Stop all audio before restarting
         audio_stop_all();
         room_restart();  // Restart the current room

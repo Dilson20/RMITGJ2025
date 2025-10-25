@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"save_score_to_txt",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"save_score_to_txt",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -16,11 +16,25 @@ draw_text(room_width / 2, 50, display);
 draw_set_halign(fa_left);
 draw_text(20, 20, "Level: " + string(current_level));
 
+// === DRAW HIGH SCORE ===
+var high_score = get_highest_score();
+if (high_score > 0) {
+    draw_text(20, 40, "Best: " + string(high_score));
+}
+
+// === DRAW CURRENT SCORE ===
+var current_score = 0;
+if (variable_global_exists("level1_time_left")) current_score += global.level1_time_left * 100;
+if (variable_global_exists("level2_time_left")) current_score += global.level2_time_left * 100;
+if (variable_global_exists("level3_time_left")) current_score += global.level3_time_left * 100;
+draw_text(20, 60, "Score: " + string(current_score));
+
 // === DRAW FREEZE WARNING ===
 if (is_frozen) {
     var freeze_seconds = ceil(freeze_timer / room_speed);
     draw_set_color(c_red);
-    draw_text(20, 40, "FROZEN: " + string(freeze_seconds) + "s");
+    draw_text(20, 100, "FROZEN: " + string(freeze_seconds) + "s");
+    draw_set_color(c_white);
 }
 
 // === DRAW TIMER ===
@@ -71,13 +85,49 @@ if (game_over) {
         draw_set_halign(fa_center);
         draw_set_valign(fa_middle);
         draw_set_color(c_red);
-        draw_set_font(font_normal);  // Using the default font
-        draw_text(screen_center_x, screen_center_y - 100, "TIME UP!");
+        draw_set_font(font_normal);
+        draw_text(screen_center_x, screen_center_y - 150, "TIME UP!");
+        
+        // Draw final score
+        draw_set_color(c_yellow);
+        draw_set_font(font_normal);
+        draw_text(screen_center_x, screen_center_y - 50, "Final Score: " + string(global.total_score));
+        
+        // Check if new high score
+        if (global.total_score > high_score) {
+            draw_set_color(c_lime);
+            draw_text(screen_center_x, screen_center_y, "NEW HIGH SCORE!");
+        }
         
         // Draw "Press SPACE to retry" text
         draw_set_color(c_white);
-        draw_set_font(font_normal);  // Using the default font
         draw_text(screen_center_x, screen_center_y + 100, "Press SPACE to retry");
+    } else if (show_winning_screen) {
+        // Draw winning screen
+        var screen_center_x = room_width / 2;
+        var screen_center_y = room_height / 2;
+        
+        draw_set_halign(fa_center);
+        draw_set_valign(fa_middle);
+        draw_set_color(c_lime);
+        draw_set_font(font_normal);
+        draw_text(screen_center_x, screen_center_y - 150, "CONGRATULATIONS!");
+        draw_text(screen_center_x, screen_center_y - 100, "YOU WON!");
+        
+        // Draw final score
+        draw_set_color(c_yellow);
+        draw_set_font(font_normal);
+        draw_text(screen_center_x, screen_center_y - 30, "Final Score: " + string(global.total_score));
+        
+        // Check if new high score
+        if (global.total_score > high_score) {
+            draw_set_color(c_lime);
+            draw_text(screen_center_x, screen_center_y + 20, "NEW HIGH SCORE!");
+        }
+        
+        // Draw "Press SPACE to play again" text
+        draw_set_color(c_white);
+        draw_text(screen_center_x, screen_center_y + 100, "Press SPACE to play again");
     } else {
         draw_set_halign(fa_center);
         draw_set_color(c_yellow);
