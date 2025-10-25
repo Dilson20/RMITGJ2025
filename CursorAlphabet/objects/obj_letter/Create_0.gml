@@ -5,16 +5,13 @@ is_number = false; // Used for level 2 to track if this is a number bubble
 // Circle radius
 radius = 30;
 
-// Safe zone to avoid hangman word area
-var top_safe_zone = 120;
-
 // Try to find a free spot that doesn't overlap others
 var safe = false;
 var attempts = 0;
 repeat (100) { // safety limit
     attempts++;
     x = irandom_range(50, room_width - 50);
-    y = irandom_range(top_safe_zone, room_height - 50); // Spawn below hangman word
+    y = irandom_range(50, room_height - 50);
     safe = true;
 
     // Check distance to other letters
