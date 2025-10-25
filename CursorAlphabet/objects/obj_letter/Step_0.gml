@@ -85,9 +85,13 @@ if (instance_exists(obj_cursor)) {
 
                 if (isCorrect) {
                     show_debug_message("✅ Correct letter: " + letter);
+                    // Play correct sound
+                    audio_play_sound(snd_slash, 1, false);
                 } else {
                     show_debug_message("❌ Wrong letter: " + letter);
                     hm.attempts_left -= 1; // FIXED: Decrement attempts for wrong guess
+                    // Play wrong sound
+                    audio_play_sound(snd_wrong, 1, false);
                 }
             }
 
