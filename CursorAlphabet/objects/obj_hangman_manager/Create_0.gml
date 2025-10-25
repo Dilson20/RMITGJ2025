@@ -1,5 +1,7 @@
 // === List of words to play ===
-word_list = ["APPLE", "BANANA", "CHERRY", "MANGO", "ORANGE"];
+word_list_1 = ["APPLE", "BANANA", "CHERRY", "MANGO", "ORANGE", "AVOCADO"];
+word_list_2 = ["KIWI", "WATERMELON", "LYCHEE", "DURIAN", "STRAWBERRY"];
+word_list_3 = ["POMEGRAN ENT", "PINEAPPLE", "PAPAYA", "TANGERINE", "STARFRUIT"];
 word_index = 0;
 
 // === Current word data ===

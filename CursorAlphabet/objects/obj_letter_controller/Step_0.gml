@@ -3,7 +3,7 @@ var max_letters = 10;        // how many letters should exist at once
 var safe_distance = 10;      // padding between circles
 var attempts_limit = 100;    // safety limit for position attempts
 var spawn_delay = room_speed * 1; // 1 second delay between spawns
-var top_safe_zone = 150;     // letters spawn below this Y value
+var top_safe_zone = 120;     // letters spawn below this Y value (hangman word area + padding)
 
 // === GLOBAL TIMER ===
 if (!variable_global_exists("spawn_timer")) {

@@ -1,3 +1,6 @@
+// Safe zone to avoid hangman word area
+var top_safe_zone = 120;
+
 switch (state) {
     case "appearing":
         alpha += fade_speed;
@@ -25,7 +28,7 @@ switch (state) {
             repeat(100) {
                 safe = true;
                 x = irandom_range(50, room_width - 50);
-                y = irandom_range(50, room_height - 50);
+                y = irandom_range(top_safe_zone, room_height - 50); // Spawn below hangman word
                 with (obj_letter) {
                     if (id != other.id) {
                         var dx = other.x - x;
