@@ -6,10 +6,17 @@ for (var i = 0; i < array_length(buttons); i++) {
     if (mouse_x >= btn.x && mouse_x <= btn.x + btn.width &&
         mouse_y >= btn.y && mouse_y <= btn.y + btn.height) {
         
+        // Play click sound if it exists
+        if (audio_exists(snd_click)) {
+            audio_play_sound(snd_click, 1, false);
+        }
+        
         // Handle button click
         switch (i) {
             case 0: // Play button
-                room_goto(btn.target_room);
+                if (btn.target_room != noone) {
+                    room_goto(btn.target_room);
+                }
                 break;
             case 1: // Rank button
                 show_debug_message("Rank button pressed");
