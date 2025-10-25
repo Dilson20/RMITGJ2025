@@ -53,7 +53,6 @@ switch (state) {
         break;
 }
 
-// Detect if cursor touches this letter
 // === Detect cursor touch ===
 if (instance_exists(obj_cursor)) {
     var dx = obj_cursor.x - x;
@@ -62,13 +61,20 @@ if (instance_exists(obj_cursor)) {
     // Check if cursor is inside the circle
     if (sqrt(dx * dx + dy * dy) <= radius) {
 
+        // Get hangman manager
+        var hm = instance_find(obj_hangman_manager, 0);
+        
+        // Check if player is frozen - if so, cannot interact
+        if (instance_exists(hm) && hm.is_frozen) {
+            exit; // Cannot click letters while frozen
+        }
+
         // Prevent multiple hits or repeated interactions
         if (state != "disappearing") {
 
             var isCorrect = false;
 
             // --- Check with Hangman Manager ---
-            var hm = instance_find(obj_hangman_manager, 0);
             if (instance_exists(hm)) {
                 var new_reveal = "";
 
@@ -92,7 +98,13 @@ if (instance_exists(obj_cursor)) {
                     audio_play_sound(snd_slash, 1, false);
                 } else {
                     show_debug_message("❌ Wrong letter: " + letter);
-                    hm.attempts_left -= 1; // FIXED: Decrement attempts for wrong guess
+                    
+                    // FREEZE THE PLAYER for 2 seconds
+                    hm.is_frozen = true;
+                    hm.freeze_timer = 2 * room_speed; // 2 seconds
+                    
+                    show_debug_message("❄️ Player frozen for 2 seconds!");
+                    
                     // Play wrong sound
                     audio_play_sound(snd_wrong, 1, false);
                 }
@@ -107,10 +119,6 @@ if (instance_exists(obj_cursor)) {
             show_debug_message("💥 Destroyed letter: " + letter);
 
             // --- Remove the letter ---
-            // Option 1: fade out smoothly
-            // state = "disappearing";
-
-            // Option 2: instant destruction (use this if you have obj_pop_effect)
             instance_destroy();
         }
     }
