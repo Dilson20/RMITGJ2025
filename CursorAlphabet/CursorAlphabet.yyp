@@ -48,6 +48,7 @@
     {"id":{"name":"slice_hit","path":"scripts/slice_hit/slice_hit.yy",},},
     {"id":{"name":"spawn_letters","path":"scripts/spawn_letters/spawn_letters.yy",},},
     {"id":{"name":"snd_slash","path":"sounds/snd_slash/snd_slash.yy",},},
+    {"id":{"name":"snd_stop","path":"sounds/snd_stop/snd_stop.yy",},},
     {"id":{"name":"snd_wrong","path":"sounds/snd_wrong/snd_wrong.yy",},},
     {"id":{"name":"spr_cursor","path":"sprites/spr_cursor/spr_cursor.yy",},},
   ],
