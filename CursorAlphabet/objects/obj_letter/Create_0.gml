@@ -50,6 +50,22 @@ repeat (100) { // safety limit
     if (safe) break;
 }
 
+// Level 2 falling mechanics
+fall_speed = 2;
+falling = false;
+fall_delay = 0;
+is_number = false;
+
+// Add falling mechanics for Level 2
+// If in Level 2, set initial fall delay based on position
+if (instance_exists(obj_hangman_manager) && obj_hangman_manager.current_level == 2) {
+    // Calculate delay based on position in grid
+    var grid_size = 5; // 5x5 grid
+    var grid_x = floor((x - 100) / 80); // Based on spacing from spawn_letters
+    var grid_y = floor((y - 100) / 80);
+    fall_delay = (grid_y * grid_size + grid_x) * room_speed * 0.5; // Half second delay between each
+}
+
 // Random color
 col = make_color_rgb(irandom(255), irandom(255), irandom(255));
 

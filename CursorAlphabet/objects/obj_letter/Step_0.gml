@@ -73,6 +73,140 @@ if (instance_exists(hm) && hm.static_bubbles) {
     }
 }
 
+// Level 2 falling behavior
+if (instance_exists(obj_hangman_manager) && obj_hangman_manager.current_level == 2) {
+    alpha = 1;  // Always visible in Level 2
+    
+    // Handle fall delay
+    if (fall_delay > 0) {
+        fall_delay--;
+        if (fall_delay <= 0) {
+            falling = true;
+        }
+    }
+    
+    // Only fall if delay is done
+    if (falling) {
+        y += fall_speed;
+        
+        // When bubble goes off screen
+        if (y > room_height + sprite_height) {
+            // Try to spawn new bubble at top with spacing
+            var new_x = random_range(80, room_width - 80);
+            var new_y = -sprite_height;
+            var found_space = false;
+            var tries = 0;
+            
+            while (!found_space && tries < 50) {
+                found_space = true;
+                new_x = random_range(80, room_width - 80);
+                
+                // Check distance from other top bubbles
+                with (obj_letter) {
+                    if (y < 0) {  // Only check bubbles above screen
+                        if (point_distance(x, y, new_x, new_y) < 60) {
+                            found_space = false;
+                            break;
+                        }
+                    }
+                }
+                tries++;
+            }
+            
+            // Create new bubble at found position
+            if (instance_number(obj_letter) <= 25) {
+                var new_bubble = instance_create_layer(new_x, new_y, "Instances", obj_letter);
+                with (new_bubble) {
+                    fall_speed = 2;
+                    image_blend = c_white;
+                    falling = true;  // Start falling immediately
+                    fall_delay = 0;  // No delay for new bubbles
+                    
+                    // 30% chance for numbers
+                    is_number = (random(1) < 0.3);
+                    
+                    if (is_number) {
+                        letter = string(irandom_range(0, 9));
+                    } else {
+                        // 45% chance for letter from current word
+                        if (instance_exists(hm) && random(1) < 0.45) {
+                            var pos = irandom_range(1, string_length(hm.word));
+                            letter = string_char_at(hm.word, pos);
+                        } else {
+                            letter = chr(ord("A") + irandom_range(0, 25));
+                        }
+                    }
+                }
+            }
+            
+            // Destroy self after creating new bubble
+            instance_destroy();
+        
+        // When bubble goes off screen
+            if (y > room_height + sprite_height) {
+                // Only create new bubble if we're under 25
+                if (instance_number(obj_letter) < 25) {
+                    // Try to find a safe spawn position
+                    var safe_position = false;
+                    var new_x = 0;
+                    var new_y = -sprite_height;
+                    var attempts = 0;
+                    
+                    while (!safe_position && attempts < 100) {
+                        new_x = random_range(80, room_width - 80);
+                        safe_position = true;
+                        
+                        // Check distance from other bubbles
+                        with (obj_letter) {
+                            if (y < 0) {  // Only check bubbles above screen
+                                var dist = point_distance(x, y, new_x, new_y);
+                                if (dist < 60) {  // Minimum spacing
+                                    safe_position = false;
+                                    break;
+                                }
+                            }
+                        }
+                        attempts++;
+                    }
+            
+            // Create new bubble
+                    // Store current word for new bubble
+                    var current_word = "";
+                    if (instance_exists(hm)) {
+                        current_word = hm.word;
+                    }
+                    
+                    var new_bubble = instance_create_layer(new_x, new_y, "Instances", obj_letter);
+                    with (new_bubble) {
+                        fall_speed = 2;
+                        image_blend = c_white;
+                        falling = true;
+                        fall_delay = 0;
+                        
+                        // First, decide if it's a number (30% chance)
+                        is_number = (random(1) < 0.3);
+                        
+                        if (is_number) {
+                            letter = string(irandom_range(0, 9));
+                        } else {
+                            // For letters, 45% chance to spawn a letter from the current word
+                            if (random(1) < 0.45 && string_length(current_word) > 0) {
+                                // Pick a random position in the word
+                                var pos = irandom_range(1, string_length(current_word));
+                                letter = string_char_at(current_word, pos);
+                            } else {
+                                letter = chr(ord("A") + irandom_range(0, 25));
+                            }
+                    }
+                }
+            
+            // Destroy self
+            instance_destroy();
+        }
+    }
+}
+}
+}
 // === Detect cursor touch ===
 if (instance_exists(obj_cursor)) {
     var dx = obj_cursor.x - x;
@@ -91,6 +225,7 @@ if (instance_exists(obj_cursor)) {
 
         // Prevent multiple hits or repeated interactions
         if (state != "disappearing") {
+            var new_reveal = "";  // Initialize new_reveal here
 
             var isCorrect = false;
 
@@ -100,8 +235,6 @@ if (instance_exists(obj_cursor)) {
                 if (hm.current_level == 2 && is_number) {
                     isCorrect = false;
                 } else {
-                    var new_reveal = "";
-
                     for (var i = 1; i <= string_length(hm.word); i++) {
                         var c = string_char_at(hm.word, i);
                         var r = string_char_at(hm.revealed, i);
@@ -115,7 +248,10 @@ if (instance_exists(obj_cursor)) {
                     }
                 }
 
-                hm.revealed = new_reveal;
+                // Only update revealed if we built a new string
+                if (string_length(new_reveal) > 0) {
+                    hm.revealed = new_reveal;
+                }
 
                 if (isCorrect) {
                     show_debug_message("✅ Correct letter: " + letter);
