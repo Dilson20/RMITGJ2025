@@ -87,7 +87,6 @@ if (instance_exists(obj_cursor)) {
                     show_debug_message("✅ Correct letter: " + letter);
                 } else {
                     show_debug_message("❌ Wrong letter: " + letter);
-                    hm.attempts_left -= 1; // FIXED: Decrement attempts for wrong guess
                 }
             }
 
@@ -108,3 +107,7 @@ if (instance_exists(obj_cursor)) {
         }
     }
 }
+
+
+
+
