@@ -14,6 +14,7 @@ revealed = "";
 
 // === Game state ===
 game_over = false;
+show_losing_screen = false;  // Track if we should show the losing screen
 is_frozen = false;  // Track if player is frozen due to wrong guess
 freeze_timer = 0;   // Countdown for freeze duration
 static_bubbles = true;  // Level 1 and 2 have static bubbles, Level 3 has animated

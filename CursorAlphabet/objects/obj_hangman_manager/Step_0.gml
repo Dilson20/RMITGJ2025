@@ -14,6 +14,8 @@ if (timer_active && !game_over) {
     if (timer <= 0) {
         // Time's up for current level!
         game_over = true;
+        show_losing_screen = true;
+        audio_play_sound(snd_lose, 1, false);  // Play losing sound
         show_debug_message("⏰ Time's up for Level " + string(current_level) + "! Game ended.");
     }
 }
@@ -26,5 +28,12 @@ if (!game_over) {
             show_debug_message("✅ Word solved: " + word);
             alarm[0] = room_speed * 2; // Delay 2 seconds before next word
         }
+    }
+} else if (show_losing_screen) {
+    // Check for space press to restart
+    if (keyboard_check_pressed(vk_space)) {
+        // Stop all audio before restarting
+        audio_stop_all();
+        room_restart();  // Restart the current room
     }
 }

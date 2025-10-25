@@ -37,6 +37,7 @@
   },
   "name":"CursorAlphabet",
   "resources":[
+    {"id":{"name":"font_normal","path":"fonts/font_normal/font_normal.yy",},},
     {"id":{"name":"obj_cursor","path":"objects/obj_cursor/obj_cursor.yy",},},
     {"id":{"name":"obj_gamecontroller","path":"objects/obj_gamecontroller/obj_gamecontroller.yy",},},
     {"id":{"name":"obj_hangman_manager","path":"objects/obj_hangman_manager/obj_hangman_manager.yy",},},
