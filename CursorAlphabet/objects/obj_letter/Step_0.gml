@@ -107,6 +107,7 @@ if (instance_exists(obj_cursor)) {
                     
                     // Play wrong sound
                     audio_play_sound(snd_wrong, 1, false);
+					audio_play_sound(snd_stop, 1, false);
                 }
             }
 

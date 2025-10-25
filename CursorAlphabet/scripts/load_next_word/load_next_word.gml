@@ -42,6 +42,14 @@ function load_next_word() {
         instance_destroy();
     }
 
+    // Clear used letters for new word
+    with (obj_hangman_manager) {
+        ds_list_clear(used_letters);
+        wrong_guesses = 0;  // Reset wrong guesses counter
+        is_frozen = false;  // Ensure player isn't frozen when starting new word
+        freeze_timer = 0;
+    }
+
     word = string_upper(word_list[word_index]);
     revealed = string_repeat("_", string_length(word));
 
