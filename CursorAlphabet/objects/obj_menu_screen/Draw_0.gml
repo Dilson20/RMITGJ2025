@@ -1,0 +1,1 @@
+draw_sprite(menu_start, 0, x, y);
