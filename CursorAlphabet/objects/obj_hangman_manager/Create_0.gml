@@ -11,11 +11,15 @@ word_index = 0;
 // === Current word data ===
 word = "";
 revealed = "";
+used_letters = ds_list_create(); // Track used letters for current word
 
 // === Game state ===
 game_over = false;
 is_frozen = false;  // Track if player is frozen due to wrong guess
 freeze_timer = 0;   // Countdown for freeze duration
+wrong_guesses = 0;  // Count consecutive wrong guesses
+freeze_threshold = 2;  // Number of wrong guesses before freezing
+freeze_duration = 3 * room_speed;  // Freeze for 3 seconds
 
 // === Timer settings (different for each level) ===
 timer = 120 * room_speed; // Start with Level 3 time (2 minutes)
