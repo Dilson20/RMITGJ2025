@@ -48,3 +48,14 @@ load_next_word();
 
 // Border
 TOP_MARGIN = 50;
+
+// === Music setup ===
+// Stop any currently playing music
+audio_stop_all();
+
+// Play appropriate music based on starting level
+if (current_level == 3) {
+    audio_play_sound(snd_chaos, 1000, true);
+} else {
+    audio_play_sound(snd_background, 1000, true);
+}

@@ -50,7 +50,9 @@ if (!game_over) {
         
         // Stop all audio before restarting
         audio_stop_all();
-        room_restart();  // Restart the current room
+        
+        // Go back to menu (Room1)
+        room_goto(Room1);
     }
 }
 

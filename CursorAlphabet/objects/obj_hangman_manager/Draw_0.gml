@@ -135,6 +135,11 @@ if (game_over) {
     }
 }
 
+// === Music setup ===
+// Stop any currently playing music
+audio_stop_all();
+
+
 // Reset drawing settings
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);

@@ -50,35 +50,58 @@ function load_next_word() {
             }
             
             // Move to next level
-            current_level++;
-            word_index = 0;
+            // Move to next level
+current_level++;
+word_index = 0;
+
+// Select appropriate word list for the new level
+switch (current_level) {
+    case 1:
+        word_list = word_list_1;
+        timer = time_limit_level_1; // 120 seconds for Level 1
+        static_bubbles = true; // Static bubbles for Level 1
         
-            // Select appropriate word list for the new level
-            switch (current_level) {
-                case 1:
-                    word_list = word_list_1;
-                    timer = time_limit_level_1; // 120 seconds for Level 1
-                    static_bubbles = true; // Static bubbles for Level 1
-                    show_debug_message("📚 Starting Level 1 - 120 seconds!");
-                    break;
-                case 2:
-                    word_list = word_list_2;
-                    timer = time_limit_level_2; // 240 seconds for Level 2
-                    static_bubbles = true; // Static bubbles for Level 2
-                    show_debug_message("📚 Starting Level 2 - 240 seconds!");
-                    break;
-                case 3:
-                    word_list = word_list_3;
-                    timer = time_limit_level_3; // 240 seconds for Level 3
-                    static_bubbles = false; // Animated bubbles for Level 3
-                    show_debug_message("📚 Starting Level 3 - 240 seconds!");
-                    break;
-                default:
-                    // No more levels - game complete!
-                    game_over = true;
-                    show_debug_message("🎉 All levels completed! You win!");
-                    return;
-            }
+        // Change music to background
+        if (!audio_is_playing(snd_background)) {
+            audio_stop_all();
+            audio_play_sound(snd_background, 1000, true);
+        }
+        
+        show_debug_message("📚 Starting Level 1 - 120 seconds!");
+        break;
+        
+    case 2:
+        word_list = word_list_2;
+        timer = time_limit_level_2; // 240 seconds for Level 2
+        static_bubbles = true; // Static bubbles for Level 2
+        
+        // Keep background music playing
+        if (!audio_is_playing(snd_background)) {
+            audio_stop_all();
+            audio_play_sound(snd_background, 1000, true);
+        }
+        
+        show_debug_message("📚 Starting Level 2 - 240 seconds!");
+        break;
+        
+    case 3:
+        word_list = word_list_3;
+        timer = time_limit_level_3; // 240 seconds for Level 3
+        static_bubbles = false; // Animated bubbles for Level 3
+        
+        // Change music to chaos for level 3
+        audio_stop_all();
+        audio_play_sound(snd_chaos, 1000, true);
+        
+        show_debug_message("📚 Starting Level 3 - 240 seconds! 🔥");
+        break;
+        
+    default:
+        // No more levels - game complete!
+        game_over = true;
+        show_debug_message("🎉 All levels completed! You win!");
+        return;
+}
         }
     
         // Check if we've run out of words
