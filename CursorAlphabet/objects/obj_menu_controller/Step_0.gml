@@ -1,4 +1,23 @@
-// Keyboard controls
+/// Menu Controller Step Event
+
+// === CHECK FOR TUTORIAL KEY (V) ===
+if (keyboard_check_pressed(ord("V"))) {
+    show_debug_message("V pressed - Going to tutorial");
+    
+    // Play click sound if it exists
+    if (audio_exists(snd_click)) {
+        audio_play_sound(snd_click, 1, false);
+    }
+    
+    // Go to tutorial room
+    if (room_exists(Room_Tutorial)) {
+        room_goto(Room_Tutorial);
+    } else {
+        show_debug_message("ERROR: Room_Tutorial does not exist! Please create it.");
+    }
+}
+
+// === KEYBOARD CONTROLS FOR MENU BUTTONS ===
 if (keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_enter)) {
     show_debug_message("Space/Enter pressed - Starting game");
     
@@ -19,41 +38,6 @@ if (keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_enter)) {
                 room_goto(btn.target_room);
             }
             break;
-        }
-    }
-        
-        if (in_button) {
-            show_debug_message("BUTTON " + string(i) + " (" + btn.text + ") CLICKED! Coordinates: " + 
-                              string(btn.x - half_width) + "," + string(btn.y - half_height) + " to " + 
-                              string(btn.x + half_width) + "," + string(btn.y + half_height));
-            
-            // Play click sound if it exists
-            if (audio_exists(snd_click)) {
-                audio_play_sound(snd_click, 1, false);
-            }
-            
-            // Handle button clicks
-            switch(i) {
-                case 0: // Play button
-                    show_debug_message("Starting game... Going to Room1");
-                    if (room_exists(Room1)) {
-                        room_goto(Room1);
-                    } else {
-                        show_debug_message("ERROR: Room1 does not exist!");
-                    }
-                    break;
-                    
-                case 1: // Rank button
-                    show_debug_message("Opening rank screen...");
-                    // Add your rank room logic here
-                    break;
-                    
-                case 2: // Guide button
-                    show_debug_message("Opening guide...");
-                    // Add your guide room logic here
-                    break;
-            }
-            break; // Exit after first button found
         }
     }
 }

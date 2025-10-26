@@ -50,6 +50,8 @@
     {"id":{"name":"obj_menu_screen","path":"objects/obj_menu_screen/obj_menu_screen.yy",},},
     {"id":{"name":"obj_pop_effect","path":"objects/obj_pop_effect/obj_pop_effect.yy",},},
     {"id":{"name":"obj_swipe","path":"objects/obj_swipe/obj_swipe.yy",},},
+    {"id":{"name":"obj_tutorial","path":"objects/obj_tutorial/obj_tutorial.yy",},},
+    {"id":{"name":"Room_Tutorial","path":"rooms/Room_Tutorial/Room_Tutorial.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"Room2","path":"rooms/Room2/Room2.yy",},},
     {"id":{"name":"load_next_word","path":"scripts/load_next_word/load_next_word.yy",},},
@@ -69,6 +71,7 @@
     {"id":{"name":"avocado","path":"sprites/avocado/avocado.yy",},},
     {"id":{"name":"banana","path":"sprites/banana/banana.yy",},},
     {"id":{"name":"bg_fruit_type_2","path":"sprites/bg_fruit_type_2/bg_fruit_type_2.yy",},},
+    {"id":{"name":"bg_fruit_type_3","path":"sprites/bg_fruit_type_3/bg_fruit_type_3.yy",},},
     {"id":{"name":"bg_fruit_type","path":"sprites/bg_fruit_type/bg_fruit_type.yy",},},
     {"id":{"name":"bubble","path":"sprites/bubble/bubble.yy",},},
     {"id":{"name":"cherry","path":"sprites/cherry/cherry.yy",},},
@@ -78,6 +81,7 @@
     {"id":{"name":"lychee","path":"sprites/lychee/lychee.yy",},},
     {"id":{"name":"menu_button","path":"sprites/menu_button/menu_button.yy",},},
     {"id":{"name":"menu_start","path":"sprites/menu_start/menu_start.yy",},},
+    {"id":{"name":"menu_tut","path":"sprites/menu_tut/menu_tut.yy",},},
     {"id":{"name":"spr_cursor_2","path":"sprites/spr_cursor_2/spr_cursor_2.yy",},},
     {"id":{"name":"spr_cursor","path":"sprites/spr_cursor/spr_cursor.yy",},},
     {"id":{"name":"spr_guide_button","path":"sprites/spr_guide_button/spr_guide_button.yy",},},
@@ -91,6 +95,7 @@
   "RoomOrderNodes":[
     {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"roomId":{"name":"Room2","path":"rooms/Room2/Room2.yy",},},
+    {"roomId":{"name":"Room_Tutorial","path":"rooms/Room_Tutorial/Room_Tutorial.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[
