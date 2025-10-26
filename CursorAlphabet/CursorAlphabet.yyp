@@ -68,6 +68,7 @@
     {"id":{"name":"Apple","path":"sprites/Apple/Apple.yy",},},
     {"id":{"name":"avocado","path":"sprites/avocado/avocado.yy",},},
     {"id":{"name":"banana","path":"sprites/banana/banana.yy",},},
+    {"id":{"name":"bg_fruit_type_2","path":"sprites/bg_fruit_type_2/bg_fruit_type_2.yy",},},
     {"id":{"name":"bg_fruit_type","path":"sprites/bg_fruit_type/bg_fruit_type.yy",},},
     {"id":{"name":"bubble","path":"sprites/bubble/bubble.yy",},},
     {"id":{"name":"cherry","path":"sprites/cherry/cherry.yy",},},

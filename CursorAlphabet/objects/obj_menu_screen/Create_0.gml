@@ -1,5 +1,5 @@
 // CREATE EVENT
-background_sprite = bg_fruit_type; // Your sprite name
+background_sprite = bg_fruit_type_2; // Your sprite name
 scale = 4; // Change this to 2, 3, 4, etc.
 
 // Remove depth setting - let it use default
@@ -16,4 +16,4 @@ x_pos = (room_width - scaled_width) / 2;
 y_pos = (room_height - scaled_height) / 2;
 
 // Set depth to be behind the menu controller
-depth = 100; // Higher number means further back
+//depth = 100; // Higher number means further back

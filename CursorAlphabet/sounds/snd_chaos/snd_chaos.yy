@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":289.14938,
+  "duration":334.9823,
   "name":"snd_chaos",
   "parent":{
     "name":"Sounds",
