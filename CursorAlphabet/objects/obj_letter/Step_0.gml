@@ -207,7 +207,8 @@ if (instance_exists(obj_hangman_manager) && obj_hangman_manager.current_level ==
 }
 }
 }
-// === Detect cursor touch ===
+
+// === Detect cursor touch WITH CHAOS MODE HINT ===
 if (instance_exists(obj_cursor)) {
     var dx = obj_cursor.x - x;
     var dy = obj_cursor.y - y;
@@ -228,6 +229,7 @@ if (instance_exists(obj_cursor)) {
             var new_reveal = "";  // Initialize new_reveal here
 
             var isCorrect = false;
+            var is_normal_letter = false;  // Track if player clicked a "normal" letter in chaos mode
 
             // --- Check with Hangman Manager ---
             if (instance_exists(hm)) {
@@ -235,6 +237,7 @@ if (instance_exists(obj_cursor)) {
                 if (hm.current_level == 2 && is_number) {
                     isCorrect = false;
                 } else {
+                    // Check if letter is in the chaos word
                     for (var i = 1; i <= string_length(hm.word); i++) {
                         var c = string_char_at(hm.word, i);
                         var r = string_char_at(hm.revealed, i);
@@ -244,6 +247,30 @@ if (instance_exists(obj_cursor)) {
                             isCorrect = true;
                         } else {
                             new_reveal += r;
+                        }
+                    }
+                    
+                    // === CHAOS MODE HINT LOGIC ===
+                    // If in chaos mode and clicked letter is NOT correct,
+                    // check if it exists in the normal word
+                    if (hm.chaos_mode && !isCorrect && string_length(hm.normal_word) > 0) {
+                        // Check if this letter exists in normal word but not chaos word
+                        if (string_pos(letter, hm.normal_word) > 0) {
+                            is_normal_letter = true;
+                            
+                            // Check if there's a hint mapping for this letter
+                            var hint_key = letter;
+                            if (ds_map_exists(hm.chaos_letter_hints, hint_key)) {
+                                var chaos_letter = ds_map_find_value(hm.chaos_letter_hints, hint_key);
+                                
+                                // Show hint message
+                                hm.show_hint = true;
+                                hm.hint_message = "'" + letter + "' is in the normal word!\nTry finding '" + chaos_letter + "' instead!";
+                                hm.hint_timer = 180; // 3 seconds at 60 FPS
+                                hm.hint_alpha = 0;
+                                
+                                show_debug_message("💡 HINT: Player clicked normal letter '" + letter + "', should find '" + chaos_letter + "'");
+                            }
                         }
                     }
                 }
@@ -260,26 +287,34 @@ if (instance_exists(obj_cursor)) {
                     // Reset wrong guesses counter on correct
                     hm.wrong_guesses_in_row = 0;
                 } else {
-                    show_debug_message("❌ Wrong letter: " + letter);
-                    
-                    // Increment wrong guesses counter
-                    hm.wrong_guesses_in_row++;
-                    
-                    // Check for consecutive wrong guesses
-                    if (hm.wrong_guesses_in_row >= 2) {
-                        // FREEZE THE PLAYER for 2 seconds
-                        hm.is_frozen = true;
-                        hm.freeze_timer = 2 * room_speed; // 2 seconds
-                        hm.wrong_guesses_in_row = 0; // Reset counter
+                    // Don't penalize as harshly if they clicked a normal letter in chaos mode
+                    if (is_normal_letter) {
+                        show_debug_message("⚠️ Normal letter clicked in chaos mode: " + letter);
+                        // Play a different sound or lighter penalty
+                        audio_play_sound(snd_wrong, 1, false);
+                        // Don't increment wrong guesses counter for hints
+                    } else {
+                        show_debug_message("❌ Wrong letter: " + letter);
                         
-                        // Play stop sound for penalty
-                        audio_play_sound(snd_stop, 1, false);
+                        // Increment wrong guesses counter
+                        hm.wrong_guesses_in_row++;
                         
-                        show_debug_message("❄️ Player frozen for 2 seconds due to consecutive wrong guesses!");
+                        // Check for consecutive wrong guesses
+                        if (hm.wrong_guesses_in_row >= 2) {
+                            // FREEZE THE PLAYER for 2 seconds
+                            hm.is_frozen = true;
+                            hm.freeze_timer = 2 * room_speed; // 2 seconds
+                            hm.wrong_guesses_in_row = 0; // Reset counter
+                            
+                            // Play stop sound for penalty
+                            audio_play_sound(snd_stop, 1, false);
+                            
+                            show_debug_message("❄️ Player frozen for 2 seconds due to consecutive wrong guesses!");
+                        } else {
+                            // Play wrong sound
+                            audio_play_sound(snd_wrong, 1, false);
+                        }
                     }
-                    
-                    // Play wrong sound
-                    audio_play_sound(snd_wrong, 1, false);
                 }
             }
 

@@ -12,8 +12,76 @@ draw_set_valign(fa_top);
 // Draw the word at the top
 draw_text(room_width / 2, 50, display);
 
+// === DRAW CHAOS MODE INDICATOR ===
+if (chaos_mode) {
+    // Pulsing red background flash
+    chaos_flash_timer += 0.05;
+    chaos_flash_alpha = abs(sin(chaos_flash_timer)) * 0.3;
+    
+    draw_set_alpha(chaos_flash_alpha);
+    draw_set_color(c_red);
+    draw_rectangle(0, 0, room_width, room_height, false);
+    draw_set_alpha(1);
+    
+    // Draw "CHAOS MODE!" text with pulsing effect
+    var pulse_scale = 1 + (sin(chaos_flash_timer * 2) * 0.2);
+    draw_set_color(c_red);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    draw_text_transformed(room_width / 2, 100, "⚡ CHAOS ROUND ⚡", pulse_scale, pulse_scale, 0);
+    draw_set_color(c_yellow);
+    draw_text(room_width / 2, 130, "WRONG SPELLINGS!");
+}
+
+// === DRAW HINT MESSAGE ===
+if (show_hint && hint_timer > 0) {
+    hint_timer--;
+    
+    // Fade in/out effect
+    if (hint_timer > 120) {
+        hint_alpha = min(hint_alpha + 0.05, 1);
+    } else {
+        hint_alpha = max(hint_alpha - 0.02, 0);
+    }
+    
+    if (hint_alpha > 0) {
+        draw_set_alpha(hint_alpha);
+        
+        // Draw hint box background
+        var hint_box_width = 600;
+        var hint_box_height = 120;
+        var hint_x = room_width / 2;
+        var hint_y = room_height / 2;
+        
+        draw_set_color(c_black);
+        draw_rectangle(hint_x - hint_box_width/2, hint_y - hint_box_height/2,
+                      hint_x + hint_box_width/2, hint_y + hint_box_height/2, false);
+        
+        // Draw hint box border
+        draw_set_color(c_orange);
+        draw_rectangle(hint_x - hint_box_width/2, hint_y - hint_box_height/2,
+                      hint_x + hint_box_width/2, hint_y + hint_box_height/2, true);
+        
+        // Draw hint text
+        draw_set_halign(fa_center);
+        draw_set_valign(fa_middle);
+        draw_set_color(c_orange);
+        draw_text(hint_x, hint_y - 20, "💡 HINT 💡");
+        draw_set_color(c_white);
+        draw_text(hint_x, hint_y + 10, hint_message);
+        
+        draw_set_alpha(1);
+    }
+    
+    if (hint_timer <= 0) {
+        show_hint = false;
+    }
+}
+
 // === DRAW LEVEL INDICATOR ===
 draw_set_halign(fa_left);
+draw_set_valign(fa_top);
+draw_set_color(c_white);
 draw_text(20, 20, "Level: " + string(current_level));
 
 // === DRAW HIGH SCORE ===
