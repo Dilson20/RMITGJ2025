@@ -1,4 +1,14 @@
 function load_next_word() {
+    // Initialize word_list if not already done
+    if (!variable_instance_exists(id, "word_list") || word_list == undefined) {
+        word_list = word_list_1;  // Default to level 1
+    }
+    
+    // Initialize revealed if not already done
+    if (!variable_instance_exists(id, "revealed") || revealed == undefined) {
+        revealed = "";
+    }
+    
     if (string_pos("_", revealed) == 0) {  // Word completed
         with (obj_letter) instance_destroy();  // Clear letters
         

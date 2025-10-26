@@ -10,7 +10,8 @@ word_index = 0;
 
 // === Current word data ===
 word = "";
-revealed = "";
+revealed = "";  // Initialize revealed with empty string
+word_list = word_list_1;  // Make sure word_list is initialized before load_next_word is called
 
 // === Game state ===
 game_over = false;
