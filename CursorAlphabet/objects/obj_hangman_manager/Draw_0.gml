@@ -135,9 +135,6 @@ if (game_over) {
     }
 }
 
-// === Music setup ===
-// Stop any currently playing music
-audio_stop_all();
 
 
 // Reset drawing settings
