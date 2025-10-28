@@ -119,7 +119,7 @@ function load_next_word() {
             instance_destroy();
         }
 
-        // === CHAOS MODE LOGIC ===
+        // === CHAOS MODE LOGIC FOR NEW IT-THEMED WORDS ===
         // Determine if this word should use chaos spelling
         var use_chaos = false;
         var current_word_name = "";
@@ -130,69 +130,64 @@ function load_next_word() {
         // Check which words should be chaos based on level
         switch (current_level) {
             case 1:
-                // Level 1: Only word 5 (ORANGE becomes AVOKADOXX)
+                // Level 1: Only word 5 (VIRUS becomes VIRUSXX)
                 if (word_index == 4) {  // Index 4 is the 5th word
                     use_chaos = true;
-                    current_word_name = "AVOCADO";
-                    normal_word = "AVOCADO";
+                    current_word_name = "VIRUS";
+                    normal_word = "VIRUS";
                     
-                    // Mapping: C→K, add O→missing in normal, add X→missing in normal
-                    ds_map_add(chaos_letter_hints, "C", "K");  // C in AVOCADO → K in AVOKADO
+                    // VIRUS → VIRUSXX
+                    // Just adds XX at the end
                 }
                 break;
                 
             case 2:
-                // Level 2: LYCHEE (word 3) and STRAWBERRY (word 5)
-                if (word_index == 2) {
+                // Level 2: CODING (word 3) and ROUTER (word 5)
+                if (word_index == 2) {  // Word 3: CODING
                     use_chaos = true;
-                    current_word_name = "LYCHEE";
-                    normal_word = "LYCHEE";
+                    current_word_name = "CODING";
+                    normal_word = "CODING";
                     
-                    // LYCHEE → LYCHIEEQQ
-                    // Y disappears, I appears, EQQ added
-                    ds_map_add(chaos_letter_hints, "Y", "I");  // Y → I
+                    // CODING → CODINGQQ
+                    // Just adds QQ at the end, all letters stay
                 }
-                if (word_index == 4) {
+                if (word_index == 4) {  // Word 5: ROUTER
                     use_chaos = true;
-                    current_word_name = "STRAWBERRY";
-                    normal_word = "STRAWBERRY";
+                    current_word_name = "ROUTER";
+                    normal_word = "ROUTER";
                     
-                    // STRAWBERRY → STRAWBERRYPP
-                    // One R disappears, PP added
-                    // (Actually it just adds PP, all letters stay)
+                    // ROUTER → ROUTERPP
+                    // Just adds PP at the end, all letters stay
                 }
                 break;
                 
             case 3:
-                // Level 3: All words except PINEAPPLE (word 2)
-                if (word_index != 1) {  // PINEAPPLE is at index 1
+                // Level 3: Words 1, 3, and 5 are chaos
+                if (word_index == 0) {  // Word 1: ALGORITHM → ALGORITHIMZZ
                     use_chaos = true;
+                    current_word_name = "ALGORITHM";
+                    normal_word = "ALGORITHM";
                     
-                    switch (word_index) {
-                        case 0: // POMEGRANATE → POMEGRANATEZZ
-                            current_word_name = "POMEGRANATE";
-                            normal_word = "POMEGRANATE";
-                            // Just adds ZZ
-                            break;
-                            
-                        case 2: // PAPAYA → PAPAIAXX
-                            current_word_name = "PAPAYA";
-                            normal_word = "PAPAYA";
-                            ds_map_add(chaos_letter_hints, "Y", "I");  // Y → I
-                            break;
-                            
-                        case 3: // TANGERINE → TANJERINEQQ
-                            current_word_name = "TANGERINE";
-                            normal_word = "TANGERINE";
-                            ds_map_add(chaos_letter_hints, "G", "J");  // G → J
-                            break;
-                            
-                        case 4: // STARFRUIT → STARFROOTT
-                            current_word_name = "STARFRUIT";
-                            normal_word = "STARFRUIT";
-                            ds_map_add(chaos_letter_hints, "U", "O");  // U → O (second one)
-                            break;
-                    }
+                    // ALGORITHM → ALGORITHIM → ALGORITHIMZZ
+                    // M → IM (adds extra I), then add ZZ
+                    ds_map_add(chaos_letter_hints, "M", "I");  // M becomes IM, so hint for the extra I
+                }
+                else if (word_index == 2) {  // Word 3: FRAMEWORK → FRAMEWORKXX
+                    use_chaos = true;
+                    current_word_name = "FRAMEWORK";
+                    normal_word = "FRAMEWORK";
+                    
+                    // FRAMEWORK → FRAMEWORKXX
+                    // Just adds XX at the end
+                }
+                else if (word_index == 4) {  // Word 5: JAVASCRIPT → JAVASCRIPYY
+                    use_chaos = true;
+                    current_word_name = "JAVASCRIPT";
+                    normal_word = "JAVASCRIPT";
+                    
+                    // JAVASCRIPT → JAVASCRIP → JAVASCRIPYY
+                    // T removed, then add YY
+                    ds_map_add(chaos_letter_hints, "T", "T");  // Hint for the missing T
                 }
                 break;
         }

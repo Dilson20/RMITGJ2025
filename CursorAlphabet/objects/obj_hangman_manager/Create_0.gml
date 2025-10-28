@@ -1,23 +1,39 @@
 // === List of words to play ===
-// Normal spellings
-word_list_1 = ["APPLE", "BANANA", "CHERRY", "MANGO", "ORANGE"]; // Level 1 - 5 rounds
-word_list_2 = ["KIWI", "WATERMELON", "LYCHEE", "DURIAN", "STRAWBERRY"]; // Level 2 - 5 rounds
-word_list_3 = ["POMEGRANATE", "PINEAPPLE", "PAPAYA", "TANGERINE", "STARFRUIT"]; // Level 3 - 5 rounds
+// Level 1: Basic IT Terms (5-6 letters, beginner)
+word_list_1 = ["MOUSE", "CLICK", "LOGIN", "EMAIL", "VIRUS"]; // Level 1 - 5 rounds
+
+// Level 2: Intermediate Programming/IT Terms (6-7 letters)
+word_list_2 = ["PYTHON", "GITHUB", "CODING", "SERVER", "ROUTER"]; // Level 2 - 5 rounds
+
+// Level 3: Advanced Programming Terms (9-10 letters)
+word_list_3 = ["ALGORITHM", "DATABASE", "FRAMEWORK", "DEVELOPER", "JAVASCRIPT"]; // Level 3 - 5 rounds
 
 // Chaos spellings (add 2 letters + change 1 letter)
 // Format: Original → Chaos (what was changed)
-chaos_word_list_1 = ["APPLE", "BANANA", "CHERRY", "MANGO", "AVOKADOXX"]; 
-// ORANGE->AVOCADO->AVOKADO (C→K) + XX added = AVOKADOXX
 
-chaos_word_list_2 = ["KIWI", "WATERMELON", "LYCHIEEQQ", "DURIAN", "STRAWBERRYPP"]; 
-// LYCHEE->LYCHIE (remove E, add I) + EQQ = LYCHIEEQQ
-// STRAWBERRY->STRAWBERY (remove R) + PP = STRAWBERRYPP
+// CHAOS LEVEL 1 (matching order with word_list_1)
+chaos_word_list_1 = ["MOUSE", "CLICK", "LOGIN", "EMAIL", "VIRUSXX"]; 
+// MOUSE (normal)
+// CLICK (normal)
+// LOGIN (normal)
+// EMAIL (normal)
+// VIRUS + XX = VIRUSXX
 
-chaos_word_list_3 = ["POMEGRANATEZZ", "PINEAPPLE", "PAPAIAXX", "TANJERINEQQ", "STARFROOTT"]; 
-// POMEGRANATE + ZZ = POMEGRANATEZZ
-// PAPAYA->PAPAIA (Y→I) + XX = PAPAIAXX
-// TANGERINE->TANJERINE (G→J) + QQ = TANJERINEQQ
-// STARFRUIT->STARFROOT (U→O) + TT = STARFROOTT
+// CHAOS LEVEL 2 (matching order with word_list_2)
+chaos_word_list_2 = ["PYTHON", "GITHUB", "CODINGQQ", "SERVER", "ROUTERPP"]; 
+// PYTHON (normal)
+// GITHUB (normal)
+// CODING + QQ = CODINGQQ
+// SERVER (normal)
+// ROUTER + PP = ROUTERPP
+
+// CHAOS LEVEL 3 (matching order with word_list_3)
+chaos_word_list_3 = ["ALGORITHIMZZ", "DATABASE", "FRAMEWORKXX", "DEVELOPER", "JAVASCRIPYY"]; 
+// ALGORITHM->ALGORITHIM (M->IM) + ZZ = ALGORITHIMZZ
+// DATABASE (normal)
+// FRAMEWORK + XX = FRAMEWORKXX
+// DEVELOPER (normal)
+// JAVASCRIPT->JAVASCRIP (T removed) + YY = JAVASCRIPYY
 
 // Normal to Chaos mapping for hints
 chaos_letter_hints = ds_map_create();
