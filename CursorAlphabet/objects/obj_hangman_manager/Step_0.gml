@@ -1,3 +1,25 @@
+// === Check hint icon hover ===
+if (instance_exists(obj_cursor)) {
+    var mx = obj_cursor.x;
+    var my = obj_cursor.y;
+    
+    // Check if cursor is over hint icon
+    var dist = point_distance(mx, my, hint_icon_x, hint_icon_y);
+    hint_icon_hover = (dist <= hint_icon_size / 2);
+    
+    // Show hint if hovering
+    if (hint_icon_hover && !show_hint) {
+        // Get hint for current word
+        var hint_key = normal_word != "" ? normal_word : word;
+        if (ds_map_exists(word_hints, hint_key)) {
+            show_hint = true;
+            hint_message = ds_map_find_value(word_hints, hint_key);
+            hint_timer = 180; // 3 seconds at 60 FPS
+            hint_alpha = 0;
+        }
+    }
+}
+
 // === Handle freeze mechanic ===
 if (is_frozen) {
     freeze_timer--;

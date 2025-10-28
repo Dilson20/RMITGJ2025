@@ -12,6 +12,33 @@ draw_set_valign(fa_top);
 // Draw the word at the top
 draw_text(room_width / 2, 50, display);
 
+// === DRAW HINT ICON ===
+// Position hint icon to the right of the word
+var word_width = string_width(display);
+hint_icon_x = (room_width / 2) + (word_width / 2) + 40;
+hint_icon_y = 50 + 10; // Align with word vertically
+
+// Draw question mark circle
+if (hint_icon_hover) {
+    draw_set_color(c_yellow);
+    draw_set_alpha(0.8);
+} else {
+    draw_set_color(c_white);
+    draw_set_alpha(0.6);
+}
+
+draw_circle(hint_icon_x, hint_icon_y, hint_icon_size / 2, false);
+draw_set_alpha(1);
+
+// Draw question mark
+draw_set_color(c_black);
+draw_set_halign(fa_center);
+draw_set_valign(fa_middle);
+draw_text_transformed(hint_icon_x, hint_icon_y, "?", 1.5, 1.5, 0);
+
+// Reset for rest of drawing
+draw_set_color(c_white);
+
 // === DRAW CHAOS MODE INDICATOR ===
 if (chaos_mode) {
     // Pulsing red background flash

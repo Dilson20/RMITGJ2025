@@ -7,3 +7,7 @@ if (ds_exists(used_letters, ds_type_list)) {
 if (ds_exists(chaos_letter_hints, ds_type_map)) {
     ds_map_destroy(chaos_letter_hints);
 }
+
+if (ds_exists(word_hints, ds_type_map)) {
+    ds_map_destroy(word_hints);
+}

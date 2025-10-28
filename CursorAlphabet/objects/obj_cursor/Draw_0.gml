@@ -9,4 +9,4 @@ var original_width = sprite_get_width(spr_cursor_pacman);
 var scale = TARGET_SIZE / original_width;
 
 // Draw the cursor
-draw_sprite_ext(spr_cursor_pacman, 0, x, y, scale, scale, 0, c_white, 1);
+draw_sprite_ext(spr_cursor_pacman, 0, x-10, y-10, scale, scale, 0, c_white, 1);

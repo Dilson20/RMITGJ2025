@@ -48,6 +48,35 @@ hint_message = "";
 hint_timer = 0;
 hint_alpha = 0;
 
+// Hint icon variables
+hint_icon_x = 0;
+hint_icon_y = 0;
+hint_icon_size = 32;
+hint_icon_hover = false;
+
+// Word hints for each word in each level
+word_hints = ds_map_create();
+// Level 1 hints
+ds_map_add(word_hints, "MOUSE", "A device you click to interact with computers");
+ds_map_add(word_hints, "CLICK", "The action of pressing a mouse button");
+ds_map_add(word_hints, "LOGIN", "To access a system with username and password");
+ds_map_add(word_hints, "EMAIL", "Electronic mail sent over the internet");
+ds_map_add(word_hints, "VIRUS", "Malicious software that infects computers");
+
+// Level 2 hints
+ds_map_add(word_hints, "PYTHON", "A popular programming language named after a comedy group");
+ds_map_add(word_hints, "GITHUB", "A platform for hosting and collaborating on code");
+ds_map_add(word_hints, "CODING", "The process of writing computer programs");
+ds_map_add(word_hints, "SERVER", "A computer that provides services to other computers");
+ds_map_add(word_hints, "ROUTER", "A device that forwards data between networks");
+
+// Level 3 hints
+ds_map_add(word_hints, "ALGORITHM", "A step-by-step procedure for solving a problem");
+ds_map_add(word_hints, "DATABASE", "An organized collection of structured data");
+ds_map_add(word_hints, "FRAMEWORK", "A platform for developing software applications");
+ds_map_add(word_hints, "DEVELOPER", "A person who writes and maintains software");
+ds_map_add(word_hints, "JAVASCRIPT", "A programming language used for web development");
+
 // === Track current level and word list ===
 current_level = 1;  // Start at Level 1
 word_list = word_list_1;  // Start with Level 1 words
