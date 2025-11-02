@@ -2,7 +2,7 @@
   "$GMProject":"v1",
   "%Name":"CursorAlphabet",
   "AudioGroups":[
-    {"$GMAudioGroup":"","%Name":"audiogroup_default","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
+    {"$GMAudioGroup":"v1","%Name":"audiogroup_default","exportDir":"","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
   ],
   "configs":{
     "children":[],
@@ -33,7 +33,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.13.1.193",
+    "IDEVersion":"2024.14.0.207",
   },
   "name":"CursorAlphabet",
   "resources":[
@@ -72,6 +72,7 @@
     {"id":{"name":"banana","path":"sprites/banana/banana.yy",},},
     {"id":{"name":"bg_fruit_type_2","path":"sprites/bg_fruit_type_2/bg_fruit_type_2.yy",},},
     {"id":{"name":"bg_fruit_type_3","path":"sprites/bg_fruit_type_3/bg_fruit_type_3.yy",},},
+    {"id":{"name":"bg_fruit_type_4","path":"sprites/bg_fruit_type_4/bg_fruit_type_4.yy",},},
     {"id":{"name":"bg_fruit_type","path":"sprites/bg_fruit_type/bg_fruit_type.yy",},},
     {"id":{"name":"bubble","path":"sprites/bubble/bubble.yy",},},
     {"id":{"name":"cherry","path":"sprites/cherry/cherry.yy",},},

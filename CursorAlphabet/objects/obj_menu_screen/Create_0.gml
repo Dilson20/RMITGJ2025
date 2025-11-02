@@ -1,5 +1,5 @@
 // CREATE EVENT
-background_sprite = bg_fruit_type_3; // Your sprite name
+background_sprite = bg_fruit_type_4; // Your sprite name
 scale = 4; // Change this to 2, 3, 4, etc.
 
 // Remove depth setting - let it use default
