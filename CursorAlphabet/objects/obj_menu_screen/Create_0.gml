@@ -1,6 +1,7 @@
 // CREATE EVENT
 background_sprite = bg_fruit_type_4; // Your sprite name
-scale = 4; // Change this to 2, 3, 4, etc.
+// Calculate scale to match bg_fruit_type_3 dimensions (320x180 at scale 4 = 1280x720)
+scale = 1280 / sprite_get_width(background_sprite); // Auto-calculates to ~0.96
 
 // Remove depth setting - let it use default
 // depth = 100; // This was causing issues
